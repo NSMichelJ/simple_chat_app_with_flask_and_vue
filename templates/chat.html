@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Simple</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='icon/comments.svg')}}" type="image/svg">
+    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/vue.min.js') }}"></script>
+</head>
+
+<body>
+    <div id="panel-chat" class="panel-chat">
+        <div class="panel-heading">
+            <div class="container">
+                <h2><span class="fa fa-comments"></span>Chat simple</h2>
+                <a href="https://github.com/NSMichelJ">by NSMichelJ</a>
+            </div>
+        </div>
+
+        <div class="panel-body">
+            <div class="container">
+                <div class="message-group" v-for='m in messages'>
+                    <div v-if='m.username == "{{username}}"' style="text-align: right;">
+                        <p class="message-text message-text-primary">[[m.text]]</p>
+                    </div>
+    
+                    <div v-else style="text-align: left;">
+                        <p style="color: #ccc; font-size: 16px; margin-bottom: 10px;">
+    
+                            <span class="fa fa-user-circle"></span>
+                            [[m.username]]
+                        </p>
+    
+                        <p class="message-text message-text-second">[[m.text]]</p>
+    
+                    </div>
+                    <hr>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="panel-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="textarea-container">
+                        <textarea class="textarea-chat" v-model='message' rows="3" placeholder="Tu mensaje aqui"></textarea>
+                    </div>
+                    <div class="btn-container">
+                        <button @click="sendMessage" class="btn-circle">
+                            <span style="color: #fff; font-size: 22px;" class="fa fa-angle-right"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="{{ url_for('static', filename='js/socket.io/socket.io.js') }}"></script>
+        <script>
+            const socket = io();
+
+            var app = new Vue({
+                el: '#panel-chat',
+                delimiters: ['[[', ']]'],
+                data: {
+                    username: '{{username}}',
+                    message: '',
+                    messages: []
+                },
+                methods: {
+                    sendMessage() {
+
+                        socket.emit('chat_messages', {
+                            username: '{{username}}',
+                            text: this.message
+                        })
+                        this.message = ''
+                    }
+                }
+            })
+
+            socket.on('messages', (data) => {
+                app.messages = []
+                let messages = app.messages
+
+                data.forEach(i => {
+                    messages.push({
+                        username: i.username,
+                        text: i.text
+                    })
+                });
+                app.$set(app, 'messages', messages);
+            })
+        </script>
+</body>
+
+</html>

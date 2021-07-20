@@ -1,0 +1,131 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+a{
+    text-decoration: none;
+    color: #31708f;
+}
+
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+
+.container{
+    width: 100%;
+    margin: auto;
+}
+/* 
+.panel-chat{
+    width: 100%;
+    height: 100%;
+} */
+
+.panel-heading{
+    padding: 10px;
+    margin-bottom: 10px;
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+
+.panel-body{
+    margin: 20px 20px 120px 20px;
+}
+
+
+.message-group{
+    margin: 10px;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    display: block;
+}
+
+.message-text{
+    padding: 10px;
+    border-radius: 10px;
+    color: #fff;
+    overflow-x: auto;
+    display: inline-block;
+}
+
+.message-text-primary{
+    background: #337ab7;
+}
+
+.message-text-second{
+    background: #777;
+}
+
+.panel-footer{
+    padding: 10px 15px;
+    position: fixed;
+    bottom: 0;
+    background: #f5f5f5;
+    border-top: 1px solid #ddd;
+    width: 100%;
+}
+
+.row{
+    display: flex;
+}
+
+.textarea-container{
+    width: 90%;
+    padding: 0 10px;
+}
+
+.textarea-chat{
+    display: block;
+    width: 100%;
+    padding: 5px 10px;
+    line-height: 1.5;
+    resize: none;
+    color: #555;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    font-size: 15px;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+}
+
+.btn-container{
+    width: 10%; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+
+.btn-circle{
+    border: none;
+    width: 50px;
+    height: 50px;
+    padding: 10px;
+    border-radius: 50%;
+    background: rgb(7, 118, 192);
+}
+
+.btn-circle:hover{
+    background: rgb(7, 100, 161);
+}
+
+@media(min-width:1200px){
+    .container{
+        width: 1200px;
+    }
+}
+
+@media(max-width:550px){
+    .textarea-container{
+        width: 80%;
+    }
+    .btn-container{
+        width: 20%;
+    }
+}
